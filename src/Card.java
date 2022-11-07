@@ -10,25 +10,26 @@ public class Card {
 
     /**
      * Other constructor
-     * 
+     *
      * @param number - the value of the card
      */
     public Card(int number) {
         this.number = number;
-        if(number == 55){
+        if (number == 55) {
             this.bullHead = 7;
-        }else if(number % 11 == 0){
+        } else if (number % 11 == 0) {
             this.bullHead = 5;
-        }else if(number % 10 == 0){
+        } else if (number % 10 == 0) {
             this.bullHead = 3;
-        }else if(number % 5 == 0){
+        } else if (number % 5 == 0) {
             this.bullHead = 2;
-        }
+        } else
+            this.bullHead = 1;
     }
 
     /**
      * The getter of number
-     * 
+     *
      * @return - the value of the number
      */
     public int getNumber() {
@@ -37,7 +38,7 @@ public class Card {
 
     /**
      * The getter of bull head
-     * 
+     *
      * @return - the number of bull head
      */
     public int getBullHead() {
@@ -46,7 +47,7 @@ public class Card {
 
     /**
      * To print a card. This method has been done for you.
-     * 
+     * <p>
      * You don't need to change it and you should not change it.
      */
     public void print() {
@@ -55,7 +56,7 @@ public class Card {
 
     /**
      * To return the string of a card. This method has been done for you
-     * 
+     * <p>
      * You don't need ot change it and you should not change it.
      */
     public String toString() {

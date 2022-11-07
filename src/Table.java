@@ -69,7 +69,7 @@ public class Table {
             cards[random] = temp;
         }
         // create 4 players
-        players[0] = new Player("Kevin");
+        players[0] = new Player("Leo");
         players[1] = new Player("Computer #1");
         players[2] = new Player("Computer #2");
         players[3] = new Player("Computer #3");
@@ -144,9 +144,15 @@ public class Table {
     public void runApp() {
         for (int turn = 0; turn < 10; turn++) {
             // print Table
+            System.out.println("----------Table----------");
             print();
-
+            System.out.println("-------------------------");
             // TODO
+            System.out.println("Leo's card:");
+            for(int i = 0; i < turn;i++){
+                System.out.println(players[0].getHandCard(i));
+            }
+
         }
         for (Player p : players) {
             System.out.println(p.getName() + " has a score of " + p.getScore());
