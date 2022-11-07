@@ -172,6 +172,8 @@ public class Table {
                 players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
                 // reset to 1
                 stacksCount[stackIndex] = 1;
+                stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
+
             } else {
                 // add the card to the stack
                 if (stacksCount[stackIndex] == 5) {
@@ -194,6 +196,7 @@ public class Table {
                     players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
                     // reset to 1
                     stacksCount[stackIndex] = 1;
+                    stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
                 } else {
                     // add the card to the stack
                     if (stacksCount[stackIndex] == 5) {
