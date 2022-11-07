@@ -105,12 +105,12 @@ public class Table {
         int max = -1;
         int index = -1;
         for (int i = 0; i < 4; i++) {
+            if (stacksCount[i] == 0) continue;
             if (stacks[i][stacksCount[i] - 1].getNumber() < card.getNumber() && stacks[i][stacksCount[i] - 1].getNumber() > max) {
                 max = stacks[i][stacksCount[i] - 1].getNumber();
                 index = i;
             }
         }
-        System.out.println("Index: "+ index);
         return index;
     }
 
@@ -152,40 +152,38 @@ public class Table {
             System.out.println("-------------------------");
             // tell player to select a card
             for (int i = 0; i < NUM_OF_PLAYERS; i++) {
-                if (i == 0) {
-                    System.out.println(players[i].getName() + " please select a card to play");
-                    Card card = players[i].playCard();
-                    System.out.println(players[i].getName() + " plays " + card);
-                    // find the stack to add
-                    int stackIndex = findStackToAdd(card);
-                    if (stackIndex == -1) {
-                        // select a stack
-                        System.out.println(players[i].getName() + " please select a stack to take");
-                        Scanner sc = new Scanner(System.in);
-                        stackIndex = sc.nextInt();
-                        // check if the stack index is valid
-                        while (stackIndex < 0 || stackIndex > 3) {
-                            stackIndex = sc.nextInt();
-                            // check if the stack index is not string
-                            if (!sc.hasNextInt()) {
-                                System.out.println("Please enter a number");
-                                sc.next();
-                            }
-                        }
-                        // take the stack
-                        players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
-                        // reset to zero
-                        stacksCount[stackIndex] = 0;
-                    } else {
-                        // add the card to the stack
-                        System.out.println("Stack count: " + stacksCount[stackIndex]);
-                        stacksCount[stackIndex]++;
-                        stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
-                    }
-                } else {
-                    players[i].playCardRandomly();
-                }
 
+                System.out.println(i == 0 ? players[i].getName() + " please select a card to play" : "");
+                Card card = i == 0 ? players[i].playCard() : players[i].playCardRandomly();
+                System.out.println(players[i].getName() + " plays " + card);
+                // find the stack to add
+                int stackIndex = findStackToAdd(card);
+                if (stackIndex == -1) {
+                    // select a stack
+                    System.out.println(i == 0 ? players[i].getName() + " please select a stack to take" : "");
+                    Scanner sc = new Scanner(System.in);
+//                        stackIndex = sc.nextInt();
+                    stackIndex = 0;
+                    // check if the stack index is valid
+                    while (stackIndex < 0 || stackIndex > 3) {
+                        stackIndex = sc.nextInt();
+                        sc.nextLine();
+                    }
+                    // take the stack
+                    players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
+                    // reset to zero
+                    stacksCount[stackIndex] = 0;
+                } else {
+                    // add the card to the stack
+                    System.out.println("Stack count: " + stacksCount[stackIndex]);
+                    stacksCount[stackIndex]++;
+                    if (stacksCount[stackIndex] == 6) {
+                        players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
+                        stacksCount[stackIndex] = 1;
+                    }
+                    stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
+
+                }
             }
 
         }
