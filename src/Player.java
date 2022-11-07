@@ -45,7 +45,7 @@ public class Player {
      */
     public Player() {
         this.name = "Computer #" + count;
-        this.hand = new Card[10];
+        this.hand = new Card[0];
         this.handCount = 0;
         this.pile = new Card[0];
         count++;
