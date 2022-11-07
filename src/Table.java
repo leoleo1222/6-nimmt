@@ -61,7 +61,7 @@ public class Table {
         // shuffle the array
         for (int i = 0; i < TOTAL_NUMBER_OF_CARD; i++) {
             // access the index
-            int random = (int) (Math.random() * (TOTAL_NUMBER_OF_CARD - 1));
+            int random = (int) (Math.random() * TOTAL_NUMBER_OF_CARD);
             // get the value of card[i]
             int temp = cards[i];
             // swap the value
