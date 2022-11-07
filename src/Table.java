@@ -76,8 +76,7 @@ public class Table {
         // deal 10 cards to each player
         for (int i = 0; i < NUM_OF_PLAYERS; i++) {
             for (int j = 0; j < 10; j++) {
-                Card deal_card = new Card(cards[i * 10 + j]);
-                players[i].dealCard(deal_card);
+                players[i].dealCard(new Card(cards[i * 10 + j]));
             }
         }
         // deal 1 card to each stack
@@ -122,7 +121,7 @@ public class Table {
         // TODO
         for (int i = 0; i < stacks.length; i++) {
             System.out.print("Stack " + i + ": ");
-            for (int j = 0; j < stacks[i].length; j++) {
+            for (int j = 0; j < stacksCount[i]; j++) {
                 System.out.print(stacks[i][j]);
             }
             System.out.println();
