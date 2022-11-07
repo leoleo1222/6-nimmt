@@ -161,17 +161,15 @@ public class Table {
                 System.out.println(players[0].getName() + " please select a stack to take");
                 Scanner sc = new Scanner(System.in);
                 // check if the index is valid and the input should not be a string
-                while (stackIndex < 0 || stackIndex >3) {
-                    try{
+                while (stackIndex < 0 || stackIndex > 3) {
+                    try {
                         stackIndex = sc.nextInt();
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         sc.next();
                     }
                 }
-
-
                 // take the stack
-                players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex]-1);
+                players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
                 // reset to 1
                 stacksCount[stackIndex] = 1;
             } else {
@@ -193,7 +191,7 @@ public class Table {
                     // input a random number from 0-3
                     stackIndex = (int) (Math.random() * 4);
                     // take the stack
-                    players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex]-1);
+                    players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
                     // reset to 1
                     stacksCount[stackIndex] = 1;
                 } else {

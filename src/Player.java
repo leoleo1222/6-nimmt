@@ -26,7 +26,7 @@ public class Player {
 
     /**
      * Other constructor that specify the name of the player.
-     * 
+     * <p>
      * You need to initialize your data member properly.
      */
     public Player(String name) {
@@ -40,7 +40,7 @@ public class Player {
      * Default constructor that set the name of the player as "Computer #1",
      * "Computer #2", "Computer #3"...
      * The number grows when there are more computer players being created.
-     * 
+     * <p>
      * You need to initialize your data member properly.
      */
     public Player() {
@@ -53,7 +53,7 @@ public class Player {
 
     /**
      * Getter of name
-     * 
+     *
      * @return - the name of the player
      */
     public String getName() {
@@ -65,12 +65,10 @@ public class Player {
      * to his score pile. The variable pile should be treated as a dynamic array so
      * that the array will auto-resize to hold enough number of cards. The length of
      * pile should properly record the total number of cards taken by a player.
-     * 
+     * <p>
      * Important: at the end of this method, you should also help removing all cards
      * from the parameter array "cards".
-     * 
-     * 
-     * 
+     *
      * @param cards - an array of cards taken from a stack
      * @param count - number of cards taken from the stack
      */
@@ -98,7 +96,7 @@ public class Player {
      * This method prompts a human player to play a card. It first print
      * all cards on his hand. Then the player will need to select a card
      * to play by entering the INDEX of the card.
-     * 
+     *
      * @return - the card to play
      */
     public Card playCard() {
@@ -114,9 +112,9 @@ public class Player {
         int index = -1;
         // check if the index is valid and the input should not be a string
         while (index < 0 || index >= this.handCount) {
-            try{
+            try {
                 index = sc.nextInt();
-            }catch(Exception e){
+            } catch (Exception e) {
                 sc.next();
             }
         }
@@ -132,7 +130,7 @@ public class Player {
     /**
      * This method let a computer player to play a card randomly. The computer
      * player will pick any available card to play in a random fashion.
-     * 
+     *
      * @return - card to play
      */
     public Card playCardRandomly() {
@@ -153,25 +151,25 @@ public class Player {
      * update the variable handCount. During this method, you do not need to resize
      * the array. You can assume that a player will be dealt with at most 10 cards.
      * That is, the method will only be called 10 times on a player.
-     * 
+     * <p>
      * After each call of this method, the hand should be sorted properly according
      * to the number of the card.
-     * 
+     *
      * @param card - a card to be dealt
      */
     public void dealCard(Card card) {
         // put card to the hand
         this.handCount++;
         Card[] tmp = new Card[handCount];
-        for(int i = 0; i < handCount - 1; i++){
+        for (int i = 0; i < handCount - 1; i++) {
             tmp[i] = this.hand[i];
         }
         this.hand = tmp;
         this.hand[this.handCount - 1] = card;
-        if(this.handCount > 1){
-            for(int i = this.hand.length-1; i >= 1; i--){
-                while (this.hand[i].getNumber() < this.hand[i-1].getNumber()){
-                    Card swap = this.hand[i-1];
+        if (this.handCount > 1) {
+            for (int i = this.hand.length - 1; i >= 1; i--) {
+                while (this.hand[i].getNumber() < this.hand[i - 1].getNumber()) {
+                    Card swap = this.hand[i - 1];
                     this.hand[i - 1] = this.hand[i];
                     this.hand[i] = swap;
                 }
@@ -182,22 +180,22 @@ public class Player {
     /**
      * Get the score of the player by counting the total number of Bull Head in the
      * score pile.
-     * 
+     *
      * @return - score, 0 or a positive integer
      */
     public int getScore() {
-       // Get the score of the player by counting the total number of Bull Head in the score pile..
+        // Get the score of the player by counting the total number of Bull Head in the score pile..
         int score = 0;
         for (Card card : this.pile) {
-            if(card != null)
-            score += card.getBullHead();
+            if (card != null)
+                score += card.getBullHead();
         }
         return score;
     }
 
     /**
      * To print the score pile. This method has completed for you.
-     * 
+     * <p>
      * You don't need to modify it and you should not modify it.
      */
     public void printPile() {
@@ -209,9 +207,9 @@ public class Player {
 
     /**
      * This is a getter of hand's card. This method has been completed for you
-     *
+     * <p>
      * You don't need to modify it and you should not modify it.
-     * 
+     *
      * @param index - the index of card to take
      * @return - the card from the hand or null
      */
