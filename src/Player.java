@@ -111,7 +111,7 @@ public class Player {
         // prompt the player to select a card
         System.out.print(this.name + ", please select a card to play: ");
         Scanner sc = new Scanner(System.in);
-        int index = sc.nextInt();
+        int index = 0;
         // check if the index is valid and the input should not be a string
         while (index < 0 || index >= this.handCount) {
             try{
@@ -189,6 +189,7 @@ public class Player {
        // Get the score of the player by counting the total number of Bull Head in the score pile..
         int score = 0;
         for (Card card : this.pile) {
+            if(card != null)
             score += card.getBullHead();
         }
         return score;
