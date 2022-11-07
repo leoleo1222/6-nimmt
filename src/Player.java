@@ -31,7 +31,7 @@ public class Player {
      */
     public Player(String name) {
         this.name = name;
-        this.hand = new Card[10];
+        this.hand = new Card[0];
         this.handCount = 0;
         this.pile = new Card[0];
     }
@@ -161,9 +161,22 @@ public class Player {
      */
     public void dealCard(Card card) {
         // put card to the hand
-        this.hand[this.handCount] = card;
-        // update the hand count
         this.handCount++;
+        Card[] tmp = new Card[handCount];
+        for(int i = 0; i < handCount - 1; i++){
+            tmp[i] = this.hand[i];
+        }
+        this.hand = tmp;
+        this.hand[this.handCount - 1] = card;
+        if(this.handCount > 1){
+            for(int i = this.hand.length-1; i >= 1; i--){
+                while (this.hand[i].getNumber() < this.hand[i-1].getNumber()){
+                    Card swap = this.hand[i-1];
+                    this.hand[i - 1] = this.hand[i];
+                    this.hand[i] = swap;
+                }
+            }
+        }
     }
 
     /**
