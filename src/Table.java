@@ -149,8 +149,8 @@ public class Table {
             System.out.println("-------------------------");
             // TODO
             System.out.println("Leo's card:");
-            for(int i = 0; i < turn;i++){
-                System.out.println(players[0].getHandCard(i));
+            for(int i = 0; i < 10;i++){
+                System.out.println(i+": "+ players[0].getHandCard(i));
             }
 
         }
