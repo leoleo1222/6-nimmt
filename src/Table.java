@@ -71,7 +71,7 @@ public class Table {
             cards[random] = temp;
         }
         // create 4 players
-        players[0] = new Player("Leo");
+        players[0] = new Player("Pamela");
         players[1] = new Player("Computer #1");
         players[2] = new Player("Computer #2");
         players[3] = new Player("Computer #3");
@@ -105,7 +105,7 @@ public class Table {
         int max = -1;
         int index = -1;
         for (int i = 0; i < 4; i++) {
-            if (stacksCount[i] == 0) continue;
+            if (stacksCount[i] == 0 || stacks[i][stacksCount[i] - 1] == null) continue;
             if (stacks[i][stacksCount[i] - 1].getNumber() < card.getNumber() && stacks[i][stacksCount[i] - 1].getNumber() > max) {
                 max = stacks[i][stacksCount[i] - 1].getNumber();
                 index = i;
@@ -151,8 +151,6 @@ public class Table {
             print();
             System.out.println("-------------------------");
             // tell player to select a card
-
-
             System.out.println(players[0].getName() + " please select a card to play");
             Card card = players[0].playCard();
             System.out.println(players[0].getName() + " plays " + card);
@@ -162,28 +160,52 @@ public class Table {
                 // select a stack
                 System.out.println(players[0].getName() + " please select a stack to take");
                 Scanner sc = new Scanner(System.in);
-//               stackIndex = sc.nextInt();
-                stackIndex = 0;
-                // check if the stack index is valid
-                while (stackIndex < 0 || stackIndex > 3) {
-                    stackIndex = sc.nextInt();
-                    sc.nextLine();
+                // check if the index is valid and the input should not be a string
+                while (stackIndex < 0 || stackIndex >3) {
+                    try{
+                        stackIndex = sc.nextInt();
+                    }catch(Exception e){
+                        sc.next();
+                    }
                 }
+
+
                 // take the stack
-                players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
-                // reset to zero
-                stacksCount[stackIndex] = 0;
+                players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex]-1);
+                // reset to 1
+                stacksCount[stackIndex] = 1;
             } else {
                 // add the card to the stack
-                stacksCount[stackIndex]++;
-                if (stacksCount[stackIndex] == 6) {
+                if (stacksCount[stackIndex] == 5) {
                     players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
-                    stacksCount[stackIndex] = 1;
+                    stacksCount[stackIndex] = 0;
                 }
+                stacksCount[stackIndex]++;
                 stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
-
             }
-
+            // computer player
+            for (int i = 1; i < NUM_OF_PLAYERS; i++) {
+                card = players[i].playCardRandomly();
+                System.out.println(players[i].getName() + " plays " + card);
+                // find the stack to add
+                stackIndex = findStackToAdd(card);
+                if (stackIndex == -1) {
+                    // input a random number from 0-3
+                    stackIndex = (int) (Math.random() * 4);
+                    // take the stack
+                    players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex]-1);
+                    // reset to 1
+                    stacksCount[stackIndex] = 1;
+                } else {
+                    // add the card to the stack
+                    if (stacksCount[stackIndex] == 5) {
+                        players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
+                        stacksCount[stackIndex] = 0;
+                    }
+                    stacksCount[stackIndex]++;
+                    stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
+                }
+            }
 
         }
         for (Player p : players) {

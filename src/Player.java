@@ -111,7 +111,7 @@ public class Player {
         // prompt the player to select a card
         System.out.print(this.name + ", please select a card to play: ");
         Scanner sc = new Scanner(System.in);
-        int index = 0;
+        int index = -1;
         // check if the index is valid and the input should not be a string
         while (index < 0 || index >= this.handCount) {
             try{
