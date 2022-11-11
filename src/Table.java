@@ -150,62 +150,60 @@ public class Table {
             System.out.println("----------Table----------");
             print();
             System.out.println("-------------------------");
-            // tell player to select a card
-            System.out.println(players[0].getName() + " please select a card to play");
-            Card card = players[0].playCard();
-            System.out.println(players[0].getName() + " plays " + card);
-            // find the stack to add
-            int stackIndex = findStackToAdd(card);
-            if (stackIndex == -1) {
-                // select a stack
-                System.out.println(players[0].getName() + " please select a stack to take");
-                Scanner sc = new Scanner(System.in);
-                // check if the index is valid and the input should not be a string
-                while (stackIndex < 0 || stackIndex > 3) {
-                    try {
-                        stackIndex = sc.nextInt();
-                    } catch (Exception e) {
-                        sc.next();
-                    }
-                }
-                // take the stack
-                players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
-                // reset to 1
-                stacksCount[stackIndex] = 1;
-                stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
-
-            } else {
-                // add the card to the stack
-                if (stacksCount[stackIndex] == 5) {
-                    players[0].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
-                    stacksCount[stackIndex] = 0;
-                }
-                stacksCount[stackIndex]++;
-                stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
+            Card[] play_cards = new Card[NUM_OF_PLAYERS];
+            for (int i = 0; i < NUM_OF_PLAYERS; i++) {
+                System.out.println("----------Player " + players[i].getName() + "----------");
+                if (i == 0) System.out.println(players[0].getName() + " please select a card to play");
+                play_cards[i] = i == 0 ? players[i].playCard() : players[i].playCardRandomly();
+                System.out.println(players[0].getName() + "play card: " + play_cards[i]);
+                System.out.println("-------------------------");
             }
-            // computer player
+            int[] order = {0, 1, 2, 3};
             for (int i = 1; i < NUM_OF_PLAYERS; i++) {
-                card = players[i].playCardRandomly();
-                System.out.println(players[i].getName() + " plays " + card);
+                int j = i;
+                while (j > 0 && play_cards[j].getNumber() < play_cards[j - 1].getNumber()) {
+                    Card temp = play_cards[j];
+                    play_cards[j] = play_cards[j - 1];
+                    play_cards[j - 1] = temp;
+                    int temp2 = order[j];
+                    order[j] = order[j - 1];
+                    order[j - 1] = temp2;
+                    j--;
+                }
+            }
+            for (int i = 0; i < order.length; i++) {
+                int stackIndex = findStackToAdd(play_cards[order[i]]);
                 // find the stack to add
-                stackIndex = findStackToAdd(card);
                 if (stackIndex == -1) {
-                    // input a random number from 0-3
-                    stackIndex = (int) (Math.random() * 4);
+                    if (order[i] == 0) {
+                        // select a stack
+                        System.out.println(players[0].getName() + " please select a stack to take");
+                        Scanner sc = new Scanner(System.in);
+                        // check if the index is valid and the input should not be a string
+                        while (stackIndex < 0 || stackIndex > 3) {
+                            try {
+                                stackIndex = sc.nextInt();
+                            } catch (Exception e) {
+                                sc.next();
+                            }
+                        }
+                    } else {
+                        stackIndex = (int) (Math.random() * 4);
+                    }
                     // take the stack
-                    players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
+                    players[order[i]].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
                     // reset to 1
                     stacksCount[stackIndex] = 1;
-                    stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
+
                 } else {
                     // add the card to the stack
                     if (stacksCount[stackIndex] == 5) {
-                        players[i].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
+                        players[order[i]].moveToPile(stacks[stackIndex], stacksCount[stackIndex]);
                         stacksCount[stackIndex] = 0;
                     }
                     stacksCount[stackIndex]++;
-                    stacks[stackIndex][stacksCount[stackIndex] - 1] = card;
                 }
+                stacks[stackIndex][stacksCount[stackIndex] - 1] = play_cards[order[i]];
             }
 
         }
