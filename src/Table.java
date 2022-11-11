@@ -71,7 +71,7 @@ public class Table {
             cards[random] = temp;
         }
         // create 4 players
-        players[0] = new Player("Pamela");
+        players[0] = new Player("Leo");
         players[1] = new Player("Computer #1");
         players[2] = new Player("Computer #2");
         players[3] = new Player("Computer #3");
@@ -155,7 +155,7 @@ public class Table {
                 System.out.println("----------Player " + players[i].getName() + "----------");
                 if (i == 0) System.out.println(players[0].getName() + " please select a card to play");
                 play_cards[i] = i == 0 ? players[i].playCard() : players[i].playCardRandomly();
-                System.out.println(players[0].getName() + "play card: " + play_cards[i]);
+                System.out.println("Play card: " + play_cards[i]);
                 System.out.println("-------------------------");
             }
             int[] order = {0, 1, 2, 3};
