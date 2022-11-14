@@ -10,9 +10,7 @@ Some methods are labeled as completed or given. Please don't make any change on 
 
 # Explanation of the game of 6 nimmt!
 
-![](6nimmt.jpg)
 
-<sub><sup>image ref: https://boardgamebible.com/games/6-nimmt/</sup></sub>
 
 > The rule of the game can be referred to the following links:
 > * [YouTube video, in English](https://www.youtube.com/watch?v=ooNfiy6Nfpg)
