@@ -188,7 +188,16 @@ public class Table {
                             }
                         }
                     } else {
-                        stackIndex = (int) (Math.random() * 4);
+                        int max = -1;
+                        for (int k = 0; k < 4; k++) {
+                            if (stacksCount[k] == 0 || stacks[k][stacksCount[k] - 1] == null) continue;
+                            if (stacks[k][stacksCount[k] - 1].getNumber() < play_cards[order[k]].getNumber() && stacks[k][stacksCount[k] - 1].getNumber() > max) {
+                                max = stacks[k][stacksCount[k] - 1].getNumber();
+                                stackIndex = k;
+                            }
+                        }
+                        if(stackIndex == -1) stackIndex = 0;
+                        System.out.println(players[order[i]].getName() + " select stack " + stackIndex);
                     }
                     // take the stack
                     players[order[i]].moveToPile(stacks[stackIndex], stacksCount[stackIndex] - 1);
